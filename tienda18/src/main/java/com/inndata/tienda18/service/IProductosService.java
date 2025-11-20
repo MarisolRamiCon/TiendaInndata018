@@ -11,9 +11,9 @@ import com.inndata.tienda18.model.ProductosStringResponse;
 public interface IProductosService {
     public List<ProductosRequest> readAll();
     public Optional<ProductosRequest> readById(Integer id);
-    public ProductosResponse create(ProductosRequest producto);
-    public ProductosResponse update(ProductosRequest producto);
-    public ProductosStringResponse updateById(Integer id, ProductosRequest producto);
+    public ProductosResponse create(ProductosRequest productoRequest);
+    public ProductosResponse update(ProductosRequest productoRequest);
+    public ProductosStringResponse updateById(Integer id, ProductosRequest productoRequest);
     public ProductosStringResponse delete (Integer id);
 
 

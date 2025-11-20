@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inndata.tienda18.entity.Productos;
-import com.inndata.tienda18.model.ProductosDto;
+import com.inndata.tienda18.model.ProductosResponse;
 import com.inndata.tienda18.service.impl.ProductosService;
 
 import jakarta.websocket.server.PathParam;
@@ -26,33 +26,32 @@ public class ProductosController {
     ProductosService productosService;
 
     @GetMapping("/productos")
-    public List<ProductosDto> readAll(){
+    public List<ProductosRequest> readAll(){
         return productosService.readAll();
     }
     
     @GetMapping("/productos/{id}")
-    public Optional<ProductosDto> readById(@PathVariable Integer id){
+    public Optional<ProductosRequest> readById(@PathVariable Integer id){
         return productosService.readById(id);
     }
 
-    
     @PostMapping("/producto")
-    public Productos create(@RequestBody Productos producto){
-        return productosService.create(producto);
+    public ProductosResponse create(@RequestBody ProductosRequest productoRequest){
+        return productosService.create(productoRequest);
     }
 
     @PutMapping("/producto")
-    public Productos update(@RequestBody Productos producto){
-        return productosService.update(producto);
+    public ProductosResponse update(@RequestBody ProductosRequest productoRequest){
+        return productosService.update(productoRequest);
     }
 
     @PutMapping("/producto/{id}")
-    public String updateById(@PathVariable Integer id, @RequestBody Productos producto){
-        return productosService.updateById(id,producto);
+    public ProductosStringResponse updateById(@PathVariable Integer id, @RequestBody ProductosRequest productoRequest){
+        return productosService.updateById(id,productoRequest);
     }
 
     @DeleteMapping("/producto")
-    public String delete(@PathParam("id") Integer id){
+    public ProductosStringResponse delete(@PathParam("id") Integer id){
         return productosService.delete(id);
     }
     

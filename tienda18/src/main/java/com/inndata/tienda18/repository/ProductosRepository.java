@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.inndata.tienda18.entity.Productos;
+import com.inndata.tienda18.model.ProductosRequest;
 
-public interface ProductosRepository extends JpaRepository<Productos, Integer> {
+public interface ProductosRepository extends JpaRepository<ProductosRequest, Integer> {
 
-    public List<Productos> findByNombreLike(String nombre);
+    public List<ProductosRequest> findByNombreLike(String nombre);
     
 
 }

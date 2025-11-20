@@ -20,15 +20,15 @@ public class ProductosService implements IProductosService {
     @Autowired  // Inyección de dependencias
     ProductosRepository productosRepository;
 
-    private ProductosRequest toDto(Productos producto) {
-    ProductosRequest productoDto = new ProductosRequest();
-    productoDto.setId(producto.getIdProducto());
-    productoDto.setNombreProducto(producto.getNombreProducto());
-    productoDto.setCategoriaProducto(producto.getCategoriaProducto());
-    productoDto.setDescripcionProducto(producto.getDescripcionProducto());
-    productoDto.setIdProveedor(producto.getIdProveedor());
-    productoDto.setStockProducto(producto.getStockProducto());
-    productoDto.setPrecioProducto(producto.getPrecioProducto());
+    private ProductosRequest toDto(ProductosResponse productoResponse) {
+    ProductosRequest productosRequest = new ProductosRequest();
+    productosRequest.setId(productoResponse.getId());
+    productosRequest.setNombreProducto(producto.getNombreProducto());
+    productosRequest.setCategoriaProducto(producto.getCategoriaProducto());
+    productosRequest.setDescripcionProducto(producto.getDescripcionProducto());
+    productosRequest.setIdProveedor(producto.);
+    productosRequest.setStockProducto(producto.getStockProducto());
+    productosRequest.setPrecioProducto(producto.getPrecioProducto());
 
 
     return productoDto;

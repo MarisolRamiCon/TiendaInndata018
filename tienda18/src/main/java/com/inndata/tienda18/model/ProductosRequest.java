@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class ProductosDto {
-
+public class ProductosRequest {
     private Integer id;
     private String nombreProducto;
     private String descripcionProducto;
@@ -19,4 +18,5 @@ public class ProductosDto {
     private String categoriaProducto;
     private Integer stockProducto;
     private Integer idProveedor;
+    
 }

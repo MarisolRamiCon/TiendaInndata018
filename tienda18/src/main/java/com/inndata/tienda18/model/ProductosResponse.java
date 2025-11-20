@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class ProductosResponse {
+    
     private Integer id;
     private String nombreProducto;
     private String descripcionProducto;

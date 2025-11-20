@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.inndata.tienda18.model.Proveedores;
+
 
 @FeignClient(name = "Proveedores", url = "https://691696fba7a34288a27dc06d.mockapi.io/api/v1")
 public interface ProveedoresClient {
