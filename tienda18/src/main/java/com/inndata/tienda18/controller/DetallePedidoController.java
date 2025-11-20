@@ -15,7 +15,7 @@ public class DetallePedidoController {
     //Esto es una prueba
     @Autowired
     DetallePedidoService detallePedidoService;
-    @GetMapping("/detallePedido")
+    @GetMapping("/pedido")
     public List<DetallePedido> readAll(){
         return detallePedidoService.readAll();
     }
