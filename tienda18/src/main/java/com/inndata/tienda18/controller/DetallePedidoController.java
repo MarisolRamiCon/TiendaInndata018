@@ -20,7 +20,7 @@ public class DetallePedidoController {
     public List<DetallePedidoDto> readAll(){
         return detallePedidoService.readAll();
     }
-    @GetMapping("detallePedido/{id}")
+    @GetMapping("/detallePedido/{id}")
     public Optional<DetallePedido> readById(@PathVariable Integer id){
         return detallePedidoService.readById(id);
     }
