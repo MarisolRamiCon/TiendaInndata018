@@ -32,5 +32,5 @@ public interface ProductosClient {
     public String updateById(@PathVariable Integer id, @RequestBody Productos producto);
 
     @DeleteMapping("/Productos/{id}")
-    public String delete(@PathVariable("id") Integer id);
+    public String delete(@PathVariable Integer id);
 }

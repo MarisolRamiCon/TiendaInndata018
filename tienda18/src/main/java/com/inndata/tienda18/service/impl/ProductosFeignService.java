@@ -3,7 +3,6 @@ package com.inndata.tienda18.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inndata.tienda18.Feign.ProductosClient;
@@ -12,8 +11,11 @@ import com.inndata.tienda18.model.Productos;
 @Service
 public class ProductosFeignService implements ProductosClient {
 
-    @Autowired
-    ProductosClient productosClient;
+    private final ProductosClient productosClient;
+
+    public ProductosFeignService(ProductosClient productosClient) {
+        this.productosClient = productosClient;
+    }
 
     @Override
     public List<Productos> readAll() {

@@ -3,7 +3,7 @@ package com.inndata.tienda18.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 
@@ -12,8 +12,12 @@ import com.inndata.tienda18.model.Proveedores;
 
 @Service
 public class ProveedoresFeignService implements ProveedoresClient {
-    @Autowired
-    ProveedoresClient proveedoresClient;
+    
+    private final ProveedoresClient proveedoresClient;
+
+    public ProveedoresFeignService(ProveedoresClient proveedoresClient) {
+        this.proveedoresClient = proveedoresClient;
+    }
 
     @Override
     public List<Proveedores> readAll() {

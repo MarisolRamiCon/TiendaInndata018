@@ -3,7 +3,6 @@ package com.inndata.tienda18.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +19,11 @@ import com.inndata.tienda18.service.impl.ProductosFeignService;
 @RequestMapping("/api/v1")
 public class ProductosFeignController {
 
-    @Autowired
-    ProductosFeignService productosFeignService;
+    private final ProductosFeignService productosFeignService;
+
+    public ProductosFeignController(ProductosFeignService productosFeignService) {
+        this.productosFeignService = productosFeignService;
+    }
 
     @GetMapping("/Productos")
     public List<Productos> readAll() {
