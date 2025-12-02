@@ -1,6 +1,7 @@
 package com.inndata.tienda18.controller;
 
 import com.inndata.tienda18.entity.Empleados;
+import com.inndata.tienda18.model.EmpleadosResponse;
 import com.inndata.tienda18.service.impl.EmpleadosService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,13 @@ public class EmpleadosController {
     }
 
     // Cuando el metodo es para crear se usa POSTMAPPING
-    @PostMapping("/empleado")
-    public Empleados create(@RequestBody Empleados empleados){
+    @PostMapping("/empleados")
+    public String create(@RequestBody Empleados empleados){
         return empleadosService.create(empleados);
     }
 
     @PutMapping("/empleados")
-    public Empleados update(@RequestBody Empleados empleados){
+    public String update(@RequestBody Empleados empleados){
         return empleadosService.update(empleados);
     }
 
@@ -47,13 +48,20 @@ public class EmpleadosController {
     }
 
     @GetMapping("/empleadosSalario")
-    public List<Empleados> findByPrecio(@PathParam("salario") Double salario){
+    public List<EmpleadosResponse> findBySalario(@PathParam("salario") Double salario){
         return empleadosService.findBySalario(salario);
     }
 
     @GetMapping("/empleadosSalarioPuesto")
-    public List<Empleados> findBySalarioPuesto(@PathParam("salario") Double salario, @PathParam("puesto") String puesto){
-        return empleadosService.findBySalarioPuesto(salario,puesto);
+    public List<Empleados> findByNombreAndApellido(
+            @PathParam("nombre") String nombre, @PathParam("apellido") String apellido){
+                  return empleadosService.findByNombreApellido(nombre,apellido);
+    }
+
+    @GetMapping("/empleados/nombreandapellido")
+    public List<Empleados> NombreandApellido(
+            @PathParam("nombre") String nombre,@PathParam("apellido") String apellido) {
+                return empleadosService.NombreandApellido(nombre, apellido);
     }
 
 

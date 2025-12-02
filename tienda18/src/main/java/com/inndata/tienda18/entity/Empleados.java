@@ -29,4 +29,7 @@ public class Empleados {
     private String fechacontratacion;
     @Column(name="activo")
     private Boolean activo;
+
+    public Empleados(String juan, String lopez, String limpieza, int i, String date, boolean b) {
+    }
 }

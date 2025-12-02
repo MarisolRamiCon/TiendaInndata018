@@ -4,11 +4,13 @@ package com.inndata.tienda18.service.impl;
 
 
 import com.inndata.tienda18.entity.Empleados;
+import com.inndata.tienda18.model.EmpleadosResponse;
 import com.inndata.tienda18.repository.IEmpleadosRepository;
 import com.inndata.tienda18.service.IEmpleadosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,22 +22,39 @@ public class EmpleadosService implements IEmpleadosService {
 
     @Override
     public List<Empleados> readAll() {
-        return empleadosRepository.findAll();
+       try{ return empleadosRepository.findAll().stream().filter(
+               empleados -> empleados.getActivo().equals(true)).toList();
+    } catch (NullPointerException e){
+           return List.of();
+       }
     }
 
     @Override
     public Optional<Empleados> readById(Integer id) {
-        return empleadosRepository.findById(id);
+        try {
+            return empleadosRepository.findById(id).filter(
+                    empleados -> empleados.getActivo().equals(true));
+
+        } catch (NullPointerException e) {
+            return Optional.empty();
+        }
+    }
+    @Override
+    public String create(Empleados empleados) {
+        try{ empleadosRepository.save(empleados);
+            return "empleado guardado correctamente";
+        }  catch (InputMismatchException e){
+            return "Ingresa los datos correctamente";
+        }
     }
 
     @Override
-    public Empleados create(Empleados empleados) {
-        return empleadosRepository.save(empleados);
-    }
-
-    @Override
-    public Empleados update(Empleados empleados) {
-        return empleadosRepository.save(empleados);
+    public String update(Empleados empleados) {
+        try{ empleadosRepository.save(empleados);
+            return "empleado guardado correctamente";
+    }  catch (InputMismatchException e){
+          return "Ingresa los datos correctamente";
+      }
     }
 
     @Override
@@ -80,14 +99,42 @@ public class EmpleadosService implements IEmpleadosService {
 
 
     @Override
-    public List<Empleados> findBySalario(Double salario) {
-        return empleadosRepository.findBySalarioGreaterThan(salario);
+    public List<EmpleadosResponse> findBySalario(Double salario) {
+       // return empleadosRepository.findBySalarioGreaterThan(salario);
+        List<Empleados> listaDeEmpleados=empleadosRepository.findBySalarioGreaterThan(salario);
+        List<EmpleadosResponse> listaDeEmpleadosResponse= listaDeEmpleados.stream().map(
+                empleados -> EntityToResponse(empleados)
+        ).toList();
+        return listaDeEmpleadosResponse;
+     //   return listaDeEmpleados.stream().map(this::EntityToResponse).toList();
     }
+private EmpleadosResponse EntityToResponse(Empleados empleado){
+   EmpleadosResponse empleadosResponse = new EmpleadosResponse();
+        empleadosResponse.setIdempleados(empleado.getIdempleados());
+        empleadosResponse.setNombre(empleado.getNombre());
+        empleadosResponse.setApellido(empleado.getApellido());
+        empleadosResponse.setPuesto(empleado.getPuesto());
+        empleadosResponse.setSalario(empleado.getSalario());
+        return empleadosResponse;
 
+        /*  return new EmpleadosResponse(
+             empleado.getIdempleados(),
+             empleado.getNombre(),
+             empleado.getApellido(),
+             empleado.getPuesto(),
+             empleado.getSalario()
+     );*/
+    }
     @Override
     public List<Empleados> findByNombreApellido(String nombre, String apellido) {
             return empleadosRepository.findByNombreAndApellido(nombre, apellido);
     }
+
+    @Override
+    public List<Empleados> NombreandApellido(String nombre, String apellido) {
+        return empleadosRepository.NombreAndApellido(nombre,apellido);
+    }
+
 
 
 }
