@@ -1,7 +1,9 @@
 package com.inndata.tienda18.controller;
 
 import com.inndata.tienda18.entity.DetallePedido;
-import com.inndata.tienda18.model.DetallePedidoDto;
+import com.inndata.tienda18.model.request.DetallePedidoRequest;
+import com.inndata.tienda18.model.response.DetallePedidoResponse;
+import com.inndata.tienda18.model.response.Message;
 import com.inndata.tienda18.service.impl.DetallePedidoService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +19,27 @@ public class DetallePedidoController {
     @Autowired
     DetallePedidoService detallePedidoService;
     @GetMapping("/detallePedido")
-    public List<DetallePedidoDto> readAll(){
+    public List<DetallePedidoResponse> readAll(){
         return detallePedidoService.readAll();
     }
     @GetMapping("/detallePedido/{id}")
-    public Optional<DetallePedido> readById(@PathVariable Integer id){
+    public Optional<DetallePedidoResponse> readById(@PathVariable Integer id){
         return detallePedidoService.readById(id);
     }
     @PostMapping("/detallePedido")
-    public  DetallePedido create(@RequestBody DetallePedido detallePedido){
-        return detallePedidoService.create(detallePedido);
+    public  Message create(@RequestBody DetallePedidoRequest detallePedidoRequest){
+        return detallePedidoService.create(detallePedidoRequest);
     }
     @PutMapping("/detallePedido")
-    public DetallePedido update(@RequestBody DetallePedido detallePedido){
-        return detallePedidoService.update(detallePedido);
+    public Message update(@PathParam ("id")Integer id,@RequestBody DetallePedidoRequest detallePedidoRequest){
+        return detallePedidoService.update(id,detallePedidoRequest);
     }
     @PutMapping("/detallePedido/{id}")
     public String updateById(@PathVariable Integer id, @RequestBody DetallePedido detallePedido){
         return detallePedidoService.updateById(id, detallePedido);
     }
     @DeleteMapping("/detallePedido")
-    public String delete(@RequestParam Integer id){
+    public Message delete(@RequestParam Integer id){
         return detallePedidoService.delete(id);
     }
     @GetMapping("/detallePedidoPrecio")

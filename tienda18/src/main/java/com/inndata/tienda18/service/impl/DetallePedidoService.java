@@ -1,10 +1,11 @@
 package com.inndata.tienda18.service.impl;
 
 import com.inndata.tienda18.entity.DetallePedido;
-import com.inndata.tienda18.model.DetallePedidoDto;
+import com.inndata.tienda18.model.request.DetallePedidoRequest;
+import com.inndata.tienda18.model.response.DetallePedidoResponse;
+import com.inndata.tienda18.model.response.Message;
 import com.inndata.tienda18.repository.DetallePedidoRepository;
 import com.inndata.tienda18.service.IDetallePedidoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,34 +13,81 @@ import java.util.Optional;
 
 @Service
 public class DetallePedidoService implements IDetallePedidoService {
-    @Autowired
-    DetallePedidoRepository detallePedidoRepository;
+    private final DetallePedidoRepository detallePedidoRepository;
+
+    public DetallePedidoService(DetallePedidoRepository detallePedidoRepository) {
+        this.detallePedidoRepository = detallePedidoRepository;
+    }
     @Override
-    public List<DetallePedidoDto> readAll() {
-        List<DetallePedido> listadeDetalles=detallePedidoRepository.findAll();
-        List<DetallePedidoDto> listaFinal= listadeDetalles.stream().map(
-                detalle -> {
-                    DetallePedidoDto detalleDto = new DetallePedidoDto(detalle.getIdDetallePedido(),detalle.getCantidadPedido(),detalle.getPrecioUnitario(),
-                            detalle.getIdProducto(),detalle.getActivo());
-                    return detalleDto;
-                }
-        ).toList();
-        return listaFinal;
+    public List<DetallePedidoResponse> readAll() {
+        return detallePedidoRepository.findAll()
+                .stream()
+                .filter(detalle -> Boolean.TRUE.equals(detalle.getActivo())) // FILTRO
+                .map(detalle -> new DetallePedidoResponse(
+                        detalle.getIdDetallePedido(),
+                        detalle.getIdPedido(),
+                        detalle.getCantidadPedido(),
+                        detalle.getPrecioUnitario(),
+                        detalle.getIdProducto(),
+                        detalle.getActivo()
+                ))
+                .toList();
     }
 
     @Override
-    public Optional<DetallePedido> readById(Integer id) {
-        return detallePedidoRepository.findById(id);
+    public Optional<DetallePedidoResponse> readById(Integer id) {
+        return detallePedidoRepository.findById(id).map(
+                detallePedido -> new DetallePedidoResponse(
+                        detallePedido.getIdDetallePedido(),
+                        detallePedido.getIdPedido(),
+                        detallePedido.getCantidadPedido(),
+                        detallePedido.getPrecioUnitario(),
+                        detallePedido.getIdProducto(),
+                        detallePedido.getActivo()
+                ));
     }
 
     @Override
-    public DetallePedido create(DetallePedido detallePedido) {
-        return detallePedidoRepository.save(detallePedido);
+    public Message create(DetallePedidoRequest detallePedidoRequest) {
+        try {
+            DetallePedido detallePedido = new DetallePedido();
+            detallePedido.setIdDetallePedido(detallePedidoRequest.getId());
+            detallePedido.setIdPedido(detallePedidoRequest.getIdPedido());
+            detallePedido.setCantidadPedido(detallePedidoRequest.getCantidadPedido());
+            detallePedido.setPrecioUnitario(detallePedidoRequest.getPrecioUnitario());
+            detallePedido.setIdProducto(detallePedidoRequest.getIdProducto());
+            detallePedido.setActivo(detallePedidoRequest.getActivo());
+
+            detallePedidoRepository.save(detallePedido);
+
+            return new Message("Detalle del pedido creado correctamente");
+
+        } catch (Exception e) {
+
+            return new Message("Error al crear el detalle del pedido: " + e.getMessage());
+        }
     }
 
+
     @Override
-    public DetallePedido update(DetallePedido detallePedido) {
-        return detallePedidoRepository.save(detallePedido);
+    public Message update(Integer id,DetallePedidoRequest detallePedidoRequest) {
+       Optional<DetallePedido> detallePedido = detallePedidoRepository.findById(id);
+       DetallePedido detallePedido1 ;
+       if (detallePedido.isPresent()){
+           try {
+               detallePedido1 = detallePedido.get();
+               detallePedido1.setIdPedido(detallePedidoRequest.getIdPedido());
+               detallePedido1.setCantidadPedido(detallePedidoRequest.getCantidadPedido());
+               detallePedido1.setPrecioUnitario(detallePedidoRequest.getPrecioUnitario());
+               detallePedido1.setIdProducto(detallePedidoRequest.getIdProducto());
+               detallePedido1.setActivo(detallePedidoRequest.getActivo());
+               return new Message("Detalle del pedido actualizado");
+           }catch (Exception e){
+                return new Message("Error al actualizar el detalle del pedido: " + e.getMessage());
+           }
+       }else {
+           return new Message("No se encuentran esos detalles del pedido");
+       }
     }
 
     @Override
@@ -63,15 +111,15 @@ public class DetallePedidoService implements IDetallePedidoService {
     }
 
     @Override
-    public String delete(Integer id) {
+    public Message delete(Integer id) {
         Optional<DetallePedido> detallePedido = detallePedidoRepository.findById(id);
         if (detallePedido.isPresent()){
             DetallePedido detallePedido1 = detallePedido.get();
             detallePedido1.setActivo(false);
             detallePedidoRepository.save(detallePedido1);
-            return "Los detalles del pedido han sido borrados";
+            return new Message("Los detalles del pedido han sido borrados");
         }else {
-            return "No existen esos detalles";
+            return new Message("No existen esos detalles");
         }
     }
     //METODOS PERZONALIZADOS
