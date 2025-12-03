@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.inndata.tienda18.Feign.ProveedoresClient;
+import com.inndata.tienda18.feign.ProveedoresClient;
 import com.inndata.tienda18.model.Proveedores;
 
 

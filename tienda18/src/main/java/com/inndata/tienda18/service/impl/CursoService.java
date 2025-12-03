@@ -1,6 +1,6 @@
 package com.inndata.tienda18.service.impl;
 
-import com.inndata.tienda18.Feign.CursoClient;
+import com.inndata.tienda18.feign.CursoClient;
 import com.inndata.tienda18.model.Curso;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;

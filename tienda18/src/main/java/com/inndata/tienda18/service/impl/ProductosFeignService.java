@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.inndata.tienda18.Feign.ProductosClient;
+import com.inndata.tienda18.feign.ProductosClient;
 import com.inndata.tienda18.model.Productos;
 
 @Service

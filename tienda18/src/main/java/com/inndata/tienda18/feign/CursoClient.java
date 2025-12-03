@@ -1,4 +1,4 @@
-package com.inndata.tienda18.Feign;
+package com.inndata.tienda18.feign;
 
 import com.inndata.tienda18.model.Curso;
 import org.springframework.cloud.openfeign.FeignClient;

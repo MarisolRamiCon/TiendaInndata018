@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.inndata.tienda18.Feign.ProductosClient;
+import com.inndata.tienda18.feign.ProductosClient;
 import com.inndata.tienda18.model.Productos;
 
 @ExtendWith(MockitoExtension.class)

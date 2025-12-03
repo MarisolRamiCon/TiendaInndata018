@@ -6,8 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-
-import com.inndata.tienda18.Feign.ProveedoresClient;
+import com.inndata.tienda18.feign.ProveedoresClient;
 import com.inndata.tienda18.model.Proveedores;
 
 @Service

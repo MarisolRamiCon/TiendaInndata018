@@ -1,5 +1,5 @@
 
-package com.inndata.tienda18.Feign;
+package com.inndata.tienda18.feign;
 
 import java.util.List;
 import java.util.Optional;
