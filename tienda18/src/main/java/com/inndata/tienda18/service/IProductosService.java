@@ -16,6 +16,7 @@ public interface IProductosService {
 
 
     public List<ProductosResponse> findByNombreLike(String nombreProducto);
+    
     public List<ProductosResponse> productosPrecioMayorQue(Double precio);
     
 }

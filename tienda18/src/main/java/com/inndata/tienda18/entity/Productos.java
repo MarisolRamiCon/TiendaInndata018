@@ -23,6 +23,7 @@ public class Productos {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "id")
     private Integer idProducto; // INT UNSIGNED -> Integer
 
