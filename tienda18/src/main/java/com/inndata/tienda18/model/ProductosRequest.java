@@ -1,0 +1,23 @@
+package com.inndata.tienda18.model;
+
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+
+public class ProductosRequest {
+
+    private Integer id;
+    private String nombre;
+    private String descripcionProducto;
+    private Double precioProducto;
+    private String categoriaProducto;
+    private Integer stockProducto;
+    private Integer idProveedor;
+    
+}
