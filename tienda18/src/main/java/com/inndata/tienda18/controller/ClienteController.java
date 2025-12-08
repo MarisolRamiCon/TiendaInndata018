@@ -4,6 +4,7 @@ import com.inndata.tienda18.model.request.ClienteRequest;
 import com.inndata.tienda18.model.response.ClienteResponse;
 import com.inndata.tienda18.service.impl.ClienteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +29,18 @@ public class ClienteController {
 
     @GetMapping("/clientes/{idCliente}")
     public ResponseEntity<ClienteResponse> readById(@PathVariable("idCliente") Integer idCliente) {
-        ClienteResponse cliente = clienteService.readById(idCliente);
-        if (cliente == null) {
-            return ResponseEntity.notFound().build();
+        try {
+            ClienteResponse cliente = clienteService.readById(idCliente);
+
+            if (cliente == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok(cliente);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.ok(cliente);
     }
 
     @PostMapping("/clientes")
@@ -41,7 +49,7 @@ public class ClienteController {
             ClienteResponse response = clienteService.create(request);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ClienteResponse());
+            return ResponseEntity.internalServerError().body(null);
         }
     }
 
@@ -56,7 +64,7 @@ public class ClienteController {
             }
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ClienteResponse());
+            return ResponseEntity.internalServerError().body(null);
         }
     }
 
@@ -69,7 +77,7 @@ public class ClienteController {
             }
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ClienteResponse());
+            return ResponseEntity.internalServerError().body(null);
         }
     }
 

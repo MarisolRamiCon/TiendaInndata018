@@ -24,6 +24,7 @@ public class ClienteService implements IClientesService {
     public List<ClienteResponse> readAll() {
         return clientesRepository.findAll()
                 .stream()
+                .filter(clientes -> Boolean.TRUE.equals(clientes.isActivo()))
                 .map(ClienteMapper::toResponse)
                 .toList();
     }
