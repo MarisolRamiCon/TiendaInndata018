@@ -12,17 +12,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Clientes {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id_cliente")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cliente")
     private Integer idCliente;
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombre;
-    @Column(name="apellido")
+    @Column(name = "apellido")
     private String apellido;
-    @Column(name="direccion")
+    @Column(name = "direccion")
     private String direccion;
-    @Column(name="correo")
+    @Column(name = "correo")
     private String correo;
-    @Column(name="telefono")
+    @Column(name = "telefono")
     private String telefono;
+    @Column(name = "activo")
+    private boolean activo;
 }
